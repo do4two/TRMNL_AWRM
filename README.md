@@ -1,14 +1,36 @@
 # TRMNL Private Plugin – Müllabfuhr Remshalden-Geradstetten
 
-Zeigt auf einem TRMNL-E-Ink-Display die nächsten Müllabfuhr-Termine für
+Zeigt auf einem **TRMNL X**-E-Ink-Display die nächsten Müllabfuhr-Termine für
 
 > **Ina-Seidel-Straße 18, 73630 Remshalden (Ortsteil Geradstetten), Rems-Murr-Kreis**
 
 mit großer Hervorhebung der nächsten Tonne und eindeutigen Badges **HEUTE** / **MORGEN**.
 
-![Full-Layout Vorschau](sample/preview/full.png)
+![Full-Layout Vorschau](TRMNL_AWRM_ISS18/preview/full.png)
 
-*(HEUTE-Zustand: der Hauptbereich wird invertiert – schwarzer Block, weiße Schrift – für maximale Aufmerksamkeit auf E-Ink.)*
+*(HEUTE-Zustand: der Hauptbereich wird invertiert – schwarzer Block, weiße Schrift –
+für maximale Aufmerksamkeit auf E-Ink. Siehe `TRMNL_AWRM_ISS18/preview/half_vertical.png`.)*
+
+---
+
+## Architektur in einem Bild
+
+```
+transform/worker.js   ──►  GitHub Action (täglich)  ──►  public/awrm.json (raw-URL)
+   holt & rechnet              .github/workflows/awrm.yml        │  TRMNL X pollt 1×/Tag
+   (Filter, HEUTE/MORGEN,                                        ▼
+    Zeitzone Berlin)                          TRMNL_AWRM_ISS18/markup/*.liquid
+                                              (in die TRMNL-Felder kopiert) ──► E-Ink
+```
+
+Zwei getrennte Bausteine:
+
+1. **Daten-Logik** – `transform/worker.js`: holt die awido/AWRM-Daten, filtert
+   Ballast, fasst gleiche Tage zusammen, rechnet **HEUTE/MORGEN** in Zeitzone
+   Europe/Berlin und über Jahresgrenzen. Läuft in der **GitHub Action**, die
+   daraus täglich `public/awrm.json` erzeugt.
+2. **Darstellung** – `TRMNL_AWRM_ISS18/markup/*.liquid`: die für den TRMNL X
+   gebauten Layouts (Shared + 4 Views). Werden in die TRMNL-Plugin-Felder kopiert.
 
 ---
 
@@ -30,31 +52,16 @@ https://awido.cubefour.de/WebServices/Awido.Service.svc/secure/getData/3d6a2719-
 | `client`  | `rmk` | Mandant Rems-Murr-Kreis |
 | `oid` (Pfad) | `3d6a2719-0000-0000-0000-000000000000` | exakte Adresse: Remshalden → Ina-Seidel-Straße → Haus **18** |
 
-### Wie die OID ermittelt wurde (Adressauflösung)
-
-Die awido-API löst die Adresse in drei Schritten zu der `oid` oben auf. Alle Aufrufe sind
-offen (kein Login, kein Captcha, keine Session nötig):
-
-```
-# 1) Gemeinden des Mandanten  → "Remshalden" = 009e4b71-...
-GET .../getPlaces/client=rmk
-
-# 2) Straßen der Gemeinde      → "Ina-Seidel-Straße" = 3d69fc21-...
-GET .../getGroupedStreets/009e4b71-0000-0000-0000-000000000000?client=rmk
-
-# 3) Hausnummern der Straße    → "18" = 3d6a2719-...   ← finale OID
-GET .../getStreetAddons/3d69fc21-0000-0000-0000-000000000000?client=rmk
-```
-
-> Reference-Hilfe: Das Projekt
-> [`mampfes/hacs_waste_collection_schedule`](https://github.com/mampfes/hacs_waste_collection_schedule)
-> bildet AWRM als Awido-Mandant `rmk` bereits ab (`source/awido_de.py`) – daraus stammt der
-> dokumentierte Aufruf-Flow. Roh-Antworten zur Nachvollziehbarkeit liegen unter [`research/`](research/).
+Die OID wurde über drei offene awido-Aufrufe ermittelt (`getPlaces` → `getGroupedStreets`
+→ `getStreetAddons`); kein Login/Captcha/Session nötig. Roh-Antworten zur
+Nachvollziehbarkeit liegen unter [`research/`](research/). Referenz-Flow:
+[`mampfes/hacs_waste_collection_schedule`](https://github.com/mampfes/hacs_waste_collection_schedule)
+(`source/awido_de.py`, Mandant `rmk`).
 
 ### Abfallarten (Fraktionscodes der Quelle)
 
-| Code(s) der Quelle | Anzeige im Plugin | Badge |
-|--------------------|-------------------|-------|
+| Code(s) der Quelle | Anzeige | Badge |
+|--------------------|---------|-------|
 | `R2`,`R4`,`RC1`,`RC2` | Restmüll | `REST` |
 | `BT` | Biotonne | `BIO` |
 | `PT` | Papier | `PAP` |
@@ -62,34 +69,10 @@ GET .../getStreetAddons/3d69fc21-0000-0000-0000-000000000000?client=rmk
 | `GG` | Grüngut | `GRÜN` |
 | `CB` | Christbäume | `BAUM` |
 | `KS` | Kartonagen | `KART` |
-| `UM` | Umweltmobil | *(standardmäßig ausgeblendet)* |
+| `UM` | Umweltmobil | *(per `exclude=UM` ausgeblendet)* |
 
-`UM` (Umweltmobil) ist eine mobile Schadstoff-Sammlung, zu der man hingeht – keine Tonne,
-die man rausstellt. Sie wird per Default herausgefiltert (`exclude=UM`), damit der
-„nächste Tonne"-Bereich nicht verfälscht wird. Mehrere Restmüll-Varianten am selben Tag
-werden zu einem Eintrag „Restmüll" zusammengefasst.
-
----
-
-## 2. Architektur – warum ein kleiner Transform (Option B)
-
-Die rohe `getData`-Antwort ist **~697 KB** und enthält überwiegend Ballast (News, Kontakte,
-Depots, App-Store-Links …). Sauberes Filtern, Sortieren, Zusammenfassen gleicher Tage,
-Zukunfts-Filter sowie die **HEUTE/MORGEN-Logik in Zeitzone Europe/Berlin** sind in reinem
-Liquid fragil bis unmöglich.
-
-Deshalb: **ein minimaler, zustandsloser Serverless-Transform** ([`transform/worker.js`](transform/worker.js)),
-der die awido-Daten holt und ein **~5 KB** großes, anzeigefertiges JSON ausliefert. TRMNL
-pollt nur diese eine URL.
-
-- **Kein dauerhaft laufender Server**, kein eigener Datenspeicher – eine reine Function
-  (Cloudflare Workers / Val.town / Deno Deploy), die pro Abruf live die Quelle abfragt.
-- Robust gegen **Jahreswechsel** und **Listenende** (siehe Abschnitt 6).
-
-```
-awido.cubefour.de  ──►  worker.js (Transform)  ──►  TRMNL (Polling, 1×/Tag)  ──►  E-Ink
-   697 KB Roh-JSON        ~5 KB Anzeige-JSON          Liquid-Templates
-```
+Mehrere Restmüll-Varianten am selben Tag werden zu einem Eintrag „Restmüll"
+zusammengefasst.
 
 ### Ausgabe-JSON (Auszug)
 
@@ -115,156 +98,141 @@ Vollständiges Beispiel: [`sample/output.json`](sample/output.json).
 
 ---
 
-## 3. Transform deployen
+## 2. Daten bereitstellen – GitHub Action (aktiv)
 
-Der Code ist ein Standard-`fetch`-Handler und läuft unverändert auf mehreren Plattformen.
-**Empfehlung: Cloudflare Workers** (kostenlos, kein Kaltstart-Hosting nötig).
+Das Plugin pollt **eine URL**, die das anzeigefertige JSON liefert. Da `HEUTE`/`MORGEN`
+und `in X Tagen` tagesaktuell sein müssen, erzeugt eine **GitHub Action** die Datei
+täglich neu:
 
-### Variante A – Cloudflare Workers (empfohlen)
+- Workflow: [`.github/workflows/awrm.yml`](.github/workflows/awrm.yml) (Cron `0 4 * * *`
+  ≈ 06:00 Berlin, zusätzlich manuell über *Actions → Run workflow*).
+- Schritt: `node transform/worker.js > public/awrm.json`, danach Commit bei Änderung.
+- Voraussetzung: *Settings → Actions → Workflow permissions → Read and write*.
+
+**Polling-URL für TRMNL** (raw-URL der erzeugten Datei):
+
+```
+https://raw.githubusercontent.com/do4two/TRMNL_AWRM/main/public/awrm.json
+```
+
+> Alternative ohne GitHub: `transform/worker.js` als Live-Function deployen
+> (Cloudflare Workers via `npx wrangler deploy`, oder Val.town). Dann entsteht die
+> URL beim Deploy und die Werte werden bei jedem Abruf frisch berechnet – kein Cron nötig.
+> Adresse/Verhalten per Query überschreibbar: `?oid=...&client=...&exclude=UM,KS&limit=8`.
+
+Lokaler Testlauf des Transforms:
 
 ```bash
-cd transform
-npm install            # zieht wrangler
-npx wrangler login
-npx wrangler deploy
+node transform/worker.js          # gibt das fertige JSON auf stdout aus (Live-Abruf)
 ```
-
-Ergebnis ist eine URL wie `https://awrm-trmnl.<dein-subdomain>.workers.dev` – **diese URL**
-kommt später ins TRMNL-Plugin. Vorher testen:
-
-```bash
-curl "https://awrm-trmnl.<dein-subdomain>.workers.dev" | head
-```
-
-### Variante B – Val.town (am schnellsten, ohne CLI)
-
-1. Auf [val.town](https://val.town) einen neuen **HTTP Val** anlegen.
-2. Inhalt von [`transform/worker.js`](transform/worker.js) hineinkopieren (das `export default { fetch }`
-   wird direkt als HTTP-Handler erkannt).
-3. Die vergebene `*.web.val.run`-URL verwenden.
-
-### Variante C – lokal / Deno
-
-```bash
-cd transform
-node worker.js            # gibt das fertige JSON auf stdout aus (Live-Abruf)
-```
-
-### Adresse / Verhalten anpassen (ohne Code-Editieren)
-
-Alles per Query-Parameter (oder als Worker-`[vars]` in `wrangler.toml`) überschreibbar:
-
-```
-?oid=...&client=...&address=...&exclude=UM,KS&limit=8
-```
-
-Für eine **andere Adresse** die neue `oid` über die drei Aufrufe aus Abschnitt 1 ermitteln
-und als `?oid=` anhängen.
 
 ---
 
-## 4. TRMNL Private Plugin anlegen (Schritt für Schritt)
+## 3. TRMNL Private Plugin anlegen (Schritt für Schritt)
 
-1. In TRMNL einloggen → **Plugins → Private Plugin → „New"** (oder direkt
-   [trmnl.com/plugin_settings/new?keyname=private_plugin](https://trmnl.com/plugin_settings/new?keyname=private_plugin)).
+1. In TRMNL einloggen → **Plugins → Private Plugin → „New"**
+   ([trmnl.com/plugin_settings/new?keyname=private_plugin](https://trmnl.com/plugin_settings/new?keyname=private_plugin)).
 2. **Name**: z. B. „Müllabfuhr Remshalden".
-3. **Strategy**: **Polling** auswählen.
-4. **Polling URL**: die Transform-URL aus Abschnitt 3 eintragen
-   (z. B. `https://awrm-trmnl.<subdomain>.workers.dev`).
-   Methode `GET`, keine Header nötig.
-5. **Refresh / Polling-Intervall**: **einmal täglich** genügt völlig (z. B. alle 12–24 h).
-   Die Termine ändern sich nicht häufiger.
-6. Plugin speichern → **„Edit Markup"** öffnen. Dort gibt es vier Tabs:
-   - **Full** → Inhalt von [`templates/full.liquid`](templates/full.liquid)
-   - **Half Horizontal** → [`templates/half_horizontal.liquid`](templates/half_horizontal.liquid)
-   - **Half Vertical** → [`templates/half_vertical.liquid`](templates/half_vertical.liquid)
-   - **Quadrant** → [`templates/quadrant.liquid`](templates/quadrant.liquid)
+3. **Strategy**: **Polling**. **Polling URL**: die raw-URL aus Abschnitt 2. Methode `GET`.
+4. **Refresh-Intervall**: einmal täglich (12–24 h) genügt.
+5. Speichern → **„Edit Markup"**. Den **kompletten Dateiinhalt** aus
+   `TRMNL_AWRM_ISS18/markup/` in das jeweilige Feld kopieren:
 
-   Jeweils den kompletten Dateiinhalt in den passenden Tab kopieren.
-7. **Save** → das Plugin einem **Playlist-Eintrag** zuweisen. Fertig.
+   | Datei | TRMNL-Feld |
+   |---|---|
+   | `shared.liquid` | **Shared** |
+   | `full.liquid` | **Full** |
+   | `half_horizontal.liquid` | **Half horizontal** |
+   | `half_vertical.liquid` | **Half vertical** |
+   | `quadrant.liquid` | **Quadrant** |
 
-> Hinweis: Bei der Polling-Strategie sind die **Top-Level-Keys** des JSON direkt in Liquid
-> verfügbar (`{{ next.badge }}`, `{{ upcoming }}`, `{{ address }}` …). Die Templates sind
-> genau darauf ausgelegt.
+6. Im Editor als **Gerät „TRMNL X"** prüfen (erst Full, dann die Mashups).
+7. **Save** → Plugin einem **Playlist-Eintrag** zuweisen → **Force Refresh**.
+
+> Bei der Polling-Strategie sind die Top-Level-Keys des JSON direkt in Liquid
+> verfügbar (`{{ next.badge }}`, `{{ upcoming }}`, `{{ address }}` …).
 
 ---
 
-## 5. Die vier Layouts
+## 4. Die vier Layouts (TRMNL X)
 
-| Layout | Größe | Inhalt |
-|--------|-------|--------|
-| **full** | 800×480 | Großer Hauptbereich (nächste Abfuhr + HEUTE/MORGEN-Badge) **+** Liste „Danach" (5 Termine) |
-| **half_horizontal** | 800×240 | Nächste Abfuhr kompakt + 3 Folgetermine |
-| **half_vertical** | 400×480 | Nächste Abfuhr + 4 Folgetermine (gestapelt) |
-| **quadrant** | 400×240 | Maximal reduziert: **nur nächste Tonne + Datum** |
+Das TRMNL X besitzt ein Panel mit **1872×1404 px** (logischer 1040×780-Canvas,
+Skalierung 1,8). Die Layouts sind **responsiv** über `cqw/cqh` + `clamp()` und füllen
+jeden View-Slot – Full wie Mashup. Details und die verbindliche Struktur:
+[`TRMNL_AWRM_ISS18/readmefirst.md`](TRMNL_AWRM_ISS18/readmefirst.md).
+
+| Layout | Inhalt |
+|--------|--------|
+| **full** | Großer Hero (nächste Abfuhr + HEUTE/MORGEN) **+** Liste „Danach" (5 Termine) |
+| **half_horizontal** | Hero kompakt + 3 Folgetermine |
+| **half_vertical** | Hero + 4 Folgetermine (gestapelt) |
+| **quadrant** | Maximal reduziert: nur nächste Tonne + Datum |
 
 E-Ink-tauglich: 1-bit Schwarz/Weiß, hoher Kontrast, große Schrift, dicke Rahmen.
-Tonnen werden über **Text + Badge** unterschieden (REST/BIO/PAP/GELB/GRÜN …), **nicht über Farbe**.
-HEUTE/MORGEN invertiert den Hauptbereich (schwarzer Block) für sofortige Erkennbarkeit.
+Tonnen werden über **Text + Badge** unterschieden (REST/BIO/PAP/GELB/GRÜN …), nicht
+über Farbe. HEUTE/MORGEN invertiert den Hero (schwarzer Block).
 
-Vorschauen: [`sample/preview/`](sample/preview/) (`full.png`, `full_today.png`,
-`half_horizontal.png`, `half_vertical.png`, `quadrant.png`).
-
----
-
-## 6. Robustheit
-
-- **Zeitzone**: „heute/morgen" wird strikt in **Europe/Berlin** bestimmt (`Intl`, reine
-  Kalenderdaten – DST-sicher).
-- **Feiertage**: kommen fertig verschoben aus der Quelle; es wird nichts nachgerechnet.
-- **Jahreswechsel**: Der Transform filtert „≥ heute" und sortiert über Jahresgrenzen hinweg
-  (am 31.12. steht der 01.01. korrekt als „MORGEN"). Die `oid` ist stabil; sobald AWRM den
-  neuen Jahreskalender veröffentlicht, liefert derselbe Endpunkt automatisch die neuen Termine.
-- **Listenende / keine Termine**: Sind keine zukünftigen Termine mehr vorhanden, liefert der
-  Transform `has_pickups: false` + `error`-Text; alle Templates zeigen dann einen sauberen
-  „Keine Termine"-Zustand statt zu brechen.
-- **Quelle nicht erreichbar**: Der Transform antwortet trotzdem mit gültigem JSON
-  (`error` gesetzt, leere Liste) – das Display bleibt funktionsfähig.
-
-Getestet (siehe Abschnitt 7): HEUTE/MORGEN-Badges, Jahresgrenze 2026→2027, UM-Ausschluss,
-Restmüll-Zusammenfassung, leerer Kalender.
+Gerenderte Vorschauen: [`TRMNL_AWRM_ISS18/preview/`](TRMNL_AWRM_ISS18/preview/)
+(`full.png`, `full_today.png`, `half_horizontal.png`, `half_vertical.png`, `quadrant.png`).
 
 ---
 
-## 7. Lokale Vorschau / Tests
+## 5. Robustheit
+
+- **Zeitzone**: „heute/morgen" wird strikt in **Europe/Berlin** bestimmt (`Intl`, DST-sicher).
+- **Feiertage**: kommen fertig verschoben aus der Quelle.
+- **Jahreswechsel**: Filter „≥ heute" + Sortierung über Jahresgrenzen (am 31.12. steht
+  der 01.01. korrekt als „MORGEN").
+- **Listenende / keine Termine**: `has_pickups: false` + `error`-Text; alle Layouts
+  zeigen einen sauberen „Keine Termine"-Zustand.
+- **Quelle nicht erreichbar**: gültiges JSON mit gesetztem `error` und leerer Liste –
+  das Display bleibt funktionsfähig.
+
+---
+
+## 6. Lokale Vorschau / Tests
 
 ```bash
-# 1) Anzeige-JSON aus Live-Daten erzeugen
-cd transform && node worker.js > ../sample/output.json
-
-# 2) Templates mit den Daten rendern (HTML nach sample/preview/)
-cd ../tools && npm install        # einmalig (liquidjs)
-cd .. && node tools/render.mjs
-# dann sample/preview/*.html im Browser öffnen
+cd TRMNL_AWRM_ISS18
+make check      # Struktur-Lint der vier Layouts + Shared
+make preview    # rendert Shared+Markup mit ../sample-Daten → preview/*.html
 ```
+
+`preview/render.mjs` injiziert Shared + Markup mit den Beispieldaten
+(`sample/output.json` = Normalfall, `sample/output_today.json` = HEUTE) in die echte
+Plattformstruktur (`screen--v2` / `view` / `mashup`) und erzeugt die `*.html`. Diese
+direkt im Browser öffnen oder per Headless-Chrome screenshotten. `liquidjs` wird aus
+`tools/node_modules` aufgelöst.
 
 ---
 
-## 8. Projektstruktur
+## 7. Projektstruktur
 
 ```
 TRMNL_AWRM/
 ├─ transform/
-│  ├─ worker.js          # der Transform (Cloudflare/Val.town/Deno/Node)
-│  ├─ wrangler.toml      # Cloudflare-Deploy-Config
+│  ├─ worker.js          # Daten-Logik (Cloudflare/Val.town/Deno/Node)
+│  ├─ wrangler.toml      # optionaler Cloudflare-Deploy
 │  └─ package.json
-├─ templates/
-│  ├─ full.liquid
-│  ├─ half_horizontal.liquid
-│  ├─ half_vertical.liquid
-│  └─ quadrant.liquid
-├─ sample/
-│  ├─ output.json        # Beispiel-Anzeige-JSON
-│  └─ preview/           # gerenderte HTML/PNG-Vorschauen
-├─ tools/
-│  └─ render.mjs         # lokaler Liquid-Renderer
+├─ .github/workflows/
+│  └─ awrm.yml           # erzeugt public/awrm.json täglich
+├─ public/
+│  └─ awrm.json          # Polling-Quelle (von der Action gepflegt)
+├─ TRMNL_AWRM_ISS18/      # das TRMNL-X-Plugin (Markup + Preview)
+│  ├─ markup/            # shared + full/half_horizontal/half_vertical/quadrant.liquid
+│  ├─ preview/           # render.mjs + gerenderte HTML/PNG-Vorschauen
+│  ├─ tests/             # check_structure.py
+│  ├─ Makefile           # make check / make preview
+│  └─ readmefirst.md     # verbindliche X-Struktur-Doku
+├─ sample/               # output.json + output_today.json (Beispieldaten)
+├─ tools/                # liquidjs (von preview/render.mjs genutzt)
 ├─ research/             # verifizierte Roh-Antworten der awido-API + TRMNL-Doku
 └─ README.md
 ```
 
-## 9. Hinweise
+## 8. Hinweise
 
 - **Kein Captcha/Login/Session** für die genutzten Endpunkte nötig (Stand der Verifikation).
-  Sollte AWRM das künftig ändern, ist das hier zu dokumentieren – nicht zu umgehen.
-- Die Adress-OIDs sind ein impliziter „Snapshot" des awido-Bestands. Bei einer Adress-/
+  Sollte AWRM das ändern, ist das hier zu dokumentieren – nicht zu umgehen.
+- Die Adress-OID ist ein impliziter „Snapshot" des awido-Bestands. Bei Adress-/
   Straßenumbenennung erneut über Abschnitt 1 auflösen.

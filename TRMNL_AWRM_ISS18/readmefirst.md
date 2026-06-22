@@ -1,14 +1,16 @@
 # TRMNL X – zuerst lesen
 
-Dieser Ordner ist das **aktive Müllabfuhr-Plugin (AWRM Remshalden) für den
-TRMNL X** – aufgebaut auf der verifizierten X-Startvorlage. Er löst die alten
-OG-Templates unter `../templates/` ab (nur noch Referenz, nicht mehr gepflegt).
+Dieser Ordner ist das **aktive Müllabfuhr-Plugin (AWRM Remshalden,
+Ina-Seidel-Str. 18) für den TRMNL X** – aufgebaut auf der verifizierten
+X-Startvorlage. Er ersetzt die früheren OG-Templates (800×480), die aus dem
+Repo entfernt wurden.
 
-Datenquelle bleibt unverändert der Serverless-Transform aus `../transform/`
-(siehe Haupt-`README.md`, Abschnitt 3): die vier Markup-Felder hier konsumieren
-dasselbe Anzeige-JSON (`next`, `upcoming`, `has_pickups`, `next.badge` =
-`HEUTE`/`MORGEN`, `next.is_soon` für die invertierte Hervorhebung). Im TRMNL-
-Plugin als Gerät **TRMNL X** wählen und als Polling-URL die Transform-URL setzen.
+Datenquelle ist der Transform aus `../transform/` (`worker.js`), der per
+GitHub Action täglich `../public/awrm.json` erzeugt (siehe Haupt-`README.md`).
+Die vier Markup-Felder hier konsumieren dieses Anzeige-JSON (`next`, `upcoming`,
+`has_pickups`, `next.badge` = `HEUTE`/`MORGEN`, `next.is_soon` für die invertierte
+Hervorhebung). Im TRMNL-Plugin als Gerät **TRMNL X** wählen und als Polling-URL
+die raw-URL der `public/awrm.json` setzen.
 
 Der untenstehende Abschnitt ist die verbindliche Struktur-Doku der X-Vorlage.
 
