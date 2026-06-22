@@ -1,0 +1,21 @@
+# Cloudflare Workers deployment config for the AWRM → TRMNL transform.
+#   npm i -g wrangler        # one-time
+#   wrangler login
+#   wrangler deploy          # from inside the transform/ directory
+#
+# After deploy you get a URL like:
+#   https://awrm-trmnl.<your-subdomain>.workers.dev
+# That URL is what you paste into the TRMNL Private Plugin "Polling" field.
+
+name = "awrm-trmnl"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# Optional: override the address without editing code. These map to the
+# uppercased query-param names read by resolveOpts() in worker.js.
+# [vars]
+# CLIENT  = "rmk"
+# OID     = "3d6a2719-0000-0000-0000-000000000000"
+# ADDRESS = "Ina-Seidel-Str. 18, Remshalden"
+# EXCLUDE = "UM"
+# LIMIT   = "8"

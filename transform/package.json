@@ -1,0 +1,14 @@
+{
+  "name": "awrm-trmnl-transform",
+  "version": "1.0.0",
+  "description": "AWRM (awido/CubeFour) waste-calendar -> TRMNL-friendly JSON transform",
+  "type": "module",
+  "main": "worker.js",
+  "scripts": {
+    "local": "node worker.js",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^3"
+  }
+}

@@ -1,0 +1,50 @@
+<div class="layout layout--col">
+  <div class="x-canvas x-half-horizontal">
+    <div class="x-header">
+      <span class="x-title">Müllabfuhr</span>
+      <span class="x-meta">{{ address }}</span>
+    </div>
+
+    {% if has_pickups %}
+    {% assign n = next %}
+    <div class="x-content">
+      <div class="awrm-hero{% if n.is_soon %} awrm-hero--soon{% endif %}">
+        <div class="awrm-hero-top">
+          <span class="awrm-eyebrow">Nächste Abfuhr · {{ n.weekday_short }} {{ n.date_human }}</span>
+          {% if n.badge != "" %}<span class="awrm-when">{{ n.badge }}</span>{% endif %}
+        </div>
+        <div class="awrm-items">
+          {% for it in n.items %}
+          <div class="awrm-item">
+            <span class="awrm-tag">{{ it.tag }}</span>
+            <span class="awrm-item-name">{{ it.name }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="awrm-list">
+        <span class="awrm-list-label">Danach</span>
+        <div class="awrm-rows">
+          {% for u in upcoming offset: 1 limit: 3 %}
+          <div class="awrm-row">
+            <div class="awrm-row-date">
+              <div class="awrm-row-dm">{{ u.day }}.{{ u.month }}</div>
+              <div class="awrm-row-wd">{{ u.weekday_short }}</div>
+            </div>
+            <div class="awrm-row-items">{{ u.items_text }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="x-content">
+      <div class="awrm-empty">
+        <div class="awrm-empty-title">Keine Termine</div>
+        <div class="awrm-empty-sub">{{ error }}</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://trmnl.com/css/3.1.1/plugins.css">
+  <style>html,body{width:1872px;height:1404px;margin:0;overflow:hidden}</style>
+  
+<style>
+  .x-canvas {
+    --starter-revision: 20260622-2;
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 1.6cqw;
+    gap: 1.2cqh;
+    overflow: hidden;
+    background: #fff;
+    color: #000;
+    font-family: "Inter Variable", Inter, Arial, sans-serif;
+  }
+
+  .trmnl .layout > .x-canvas {
+    flex: 1 1 100% !important;
+    align-self: stretch !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+
+  .x-canvas *,
+  .x-canvas *::before,
+  .x-canvas *::after {
+    box-sizing: border-box;
+  }
+
+  /* ---------- Header ---------- */
+  .x-header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1cqw;
+    min-width: 0;
+    padding-bottom: 0.6cqh;
+    border-bottom: 2px solid #000;
+  }
+
+  .x-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: clamp(14px, 2.2cqw, 34px);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .x-meta {
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+    font-size: clamp(9px, 1.2cqw, 18px);
+    opacity: 0.75;
+  }
+
+  /* ---------- Body ---------- */
+  .x-content {
+    flex: 1 1 auto;
+    display: flex;
+    gap: 1.4cqw;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .awrm-stack { flex-direction: column; gap: 1.2cqh; }
+  /* Gestapelt (half vertical): Hero umschließt seinen Inhalt und sitzt oben,
+     die Liste folgt direkt darunter – kein Leerraum mitten im Block. */
+  .awrm-stack .awrm-hero { flex: 0 0 auto; justify-content: flex-start; }
+  .awrm-center { align-items: stretch; justify-content: center; }
+
+  /* ---------- Hero: nächste Abfuhr ---------- */
+  .awrm-hero {
+    flex: 1 1 56%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    border: 3px solid #000;
+    border-radius: 10px;
+    padding: 2cqh 1.6cqw;
+  }
+  .awrm-hero--soon { background: #000; color: #fff; }
+
+  .awrm-hero-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1cqw;
+  }
+  .awrm-eyebrow {
+    font-size: clamp(10px, 1.5cqw, 22px);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .awrm-when {
+    flex: 0 0 auto;
+    font-size: clamp(13px, 2.3cqw, 34px);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    padding: 0.3cqh 1cqw;
+    border-radius: 6px;
+    background: #000;
+    color: #fff;
+  }
+  .awrm-hero--soon .awrm-when { background: #fff; color: #000; }
+
+  .awrm-date {
+    margin-top: 1.2cqh;
+    font-size: clamp(16px, 3cqw, 44px);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .awrm-rel {
+    margin-top: 0.3cqh;
+    font-size: clamp(11px, 1.7cqw, 24px);
+    opacity: 0.7;
+  }
+  .awrm-hero--soon .awrm-rel { opacity: 0.85; }
+
+  .awrm-items {
+    margin-top: 1.6cqh;
+    display: flex;
+    flex-direction: column;
+    gap: 1cqh;
+    min-width: 0;
+  }
+  .awrm-item { display: flex; align-items: center; gap: 1.2cqw; min-width: 0; }
+  .awrm-tag {
+    flex: 0 0 auto;
+    min-width: 7cqw;
+    text-align: center;
+    font-size: clamp(10px, 1.5cqw, 20px);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 0.4cqh 0.8cqw;
+    border: 2px solid #000;
+    border-radius: 5px;
+  }
+  .awrm-hero--soon .awrm-tag { border-color: #fff; }
+  .awrm-item-name {
+    font-size: clamp(18px, 3.6cqw, 56px);
+    font-weight: 700;
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ---------- Liste: Danach ---------- */
+  .awrm-list {
+    flex: 1 1 44%;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .awrm-list-label {
+    flex: 0 0 auto;
+    font-size: clamp(10px, 1.5cqw, 22px);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .awrm-rows {
+    margin-top: 0.6cqh;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .awrm-row {
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
+    padding: 0.85cqh 0;
+    border-bottom: 2px solid #000;
+    min-width: 0;
+  }
+  .awrm-row-date { flex: 0 0 auto; text-align: center; min-width: 8cqw; }
+  .awrm-row-dm {
+    font-size: clamp(14px, 2.2cqw, 32px);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .awrm-row-wd {
+    font-size: clamp(9px, 1.1cqw, 16px);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .awrm-row-items {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: clamp(12px, 1.9cqw, 28px);
+    font-weight: 600;
+  }
+  .awrm-mini-when {
+    font-size: clamp(8px, 1cqw, 14px);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 0.1cqh 0.6cqw;
+    margin-left: 0.6cqw;
+    background: #000;
+    color: #fff;
+    border-radius: 4px;
+    vertical-align: middle;
+  }
+
+  /* ---------- Leerer Zustand ---------- */
+  .awrm-empty {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .awrm-empty-title {
+    font-size: clamp(18px, 4cqw, 56px);
+    font-weight: 800;
+  }
+  .awrm-empty-sub {
+    margin-top: 1cqh;
+    font-size: clamp(11px, 1.8cqw, 24px);
+    opacity: 0.7;
+  }
+</style>
+
+</head>
+<body class="trmnl environment">
+  <div class="screen screen--v2 screen--4bit">
+<div class="view view--full"><div class="layout layout--col">
+  <div class="x-canvas x-full">
+    <div class="x-header">
+      <span class="x-title">Müllabfuhr</span>
+      <span class="x-meta">Ina-Seidel-Str. 18, Remshalden · Stand 20.06.2026 00:01</span>
+    </div>
+
+    
+    
+    <div class="x-content">
+      
+      <div class="awrm-hero">
+        <div class="awrm-hero-top">
+          <span class="awrm-eyebrow">Nächste Abfuhr</span>
+          
+        </div>
+        <div class="awrm-date">Mittwoch, 24.06.2026</div>
+        <div class="awrm-rel">in 4 Tagen</div>
+        <div class="awrm-items">
+          
+          <div class="awrm-item">
+            <span class="awrm-tag">REST</span>
+            <span class="awrm-item-name">Restmüll</span>
+          </div>
+          
+          <div class="awrm-item">
+            <span class="awrm-tag">BIO</span>
+            <span class="awrm-item-name">Biotonne</span>
+          </div>
+          
+        </div>
+      </div>
+
+      
+      <div class="awrm-list">
+        <span class="awrm-list-label">Danach</span>
+        <div class="awrm-rows">
+          
+          <div class="awrm-row">
+            <div class="awrm-row-date">
+              <div class="awrm-row-dm">02.07</div>
+              <div class="awrm-row-wd">Do</div>
+            </div>
+            <div class="awrm-row-items">
+              Biotonne
+            </div>
+          </div>
+          
+          <div class="awrm-row">
+            <div class="awrm-row-date">
+              <div class="awrm-row-dm">03.07</div>
+              <div class="awrm-row-wd">Fr</div>
+            </div>
+            <div class="awrm-row-items">
+              Papier
+            </div>
+          </div>
+          
+          <div class="awrm-row">
+            <div class="awrm-row-date">
+              <div class="awrm-row-dm">09.07</div>
+              <div class="awrm-row-wd">Do</div>
+            </div>
+            <div class="awrm-row-items">
+              Restmüll + Biotonne
+            </div>
+          </div>
+          
+          <div class="awrm-row">
+            <div class="awrm-row-date">
+              <div class="awrm-row-dm">16.07</div>
+              <div class="awrm-row-wd">Do</div>
+            </div>
+            <div class="awrm-row-items">
+              Biotonne + Gelbe Tonne
+            </div>
+          </div>
+          
+          <div class="awrm-row">
+            <div class="awrm-row-date">
+              <div class="awrm-row-dm">23.07</div>
+              <div class="awrm-row-wd">Do</div>
+            </div>
+            <div class="awrm-row-items">
+              Restmüll + Biotonne
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+  </div>
+</body>
+</html>

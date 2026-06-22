@@ -1,0 +1,41 @@
+name: AWRM Daten aktualisieren
+
+# Erzeugt das Anzeige-JSON (public/awrm.json) frisch und committet es,
+# damit HEUTE/MORGEN/relative Datumsangaben taeglich korrekt sind.
+# TRMNL pollt die raw-URL dieser Datei.
+
+on:
+  schedule:
+    - cron: "0 4 * * *"      # taeglich ~06:00 Europe/Berlin
+  workflow_dispatch:          # zusaetzlich manuell ausloesbar (Actions-Tab)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: awrm-data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: JSON aus AWRM/awido erzeugen
+        run: |
+          mkdir -p public
+          node transform/worker.js > public/awrm.json
+          echo "Groesse: $(wc -c < public/awrm.json) Bytes"
+
+      - name: Bei Aenderung committen
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/awrm.json
+          git diff --staged --quiet || git commit -m "AWRM Daten aktualisiert ($(date -u +%F))"
+          git push

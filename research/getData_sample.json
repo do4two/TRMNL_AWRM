@@ -1,0 +1,309 @@
+{
+  "_note": "Trimmed sample of awido getData response, for reference. Full live response is ~697KB.",
+  "fracts": [
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#47494A",
+      "c": "#c7c7c7",
+      "icon": null,
+      "id": 2,
+      "nm": "Restmülltonne 2-wöchentliche Leerung",
+      "snm": "R2",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#47494A",
+      "c": "#c7c7c7",
+      "icon": null,
+      "id": 1,
+      "nm": "Restmülltonne 4-wöchentliche Leerung",
+      "snm": "R4",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#47494A",
+      "c": "#c7c7c7",
+      "icon": null,
+      "id": 3,
+      "nm": "Restmüllcontainer wöchentliche Leerung",
+      "snm": "RC1",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#47494A",
+      "c": "#c7c7c7",
+      "icon": null,
+      "id": 4,
+      "nm": "Restmüllcontainer 2-wöchentliche Leerung",
+      "snm": "RC2",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#dbc8a8",
+      "c": "#473f30",
+      "icon": null,
+      "id": 5,
+      "nm": "Biotonne",
+      "snm": "BT",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#aae6f7",
+      "c": "#004b5e",
+      "icon": null,
+      "id": 6,
+      "nm": "Papiertonne / Container",
+      "snm": "PT",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#ffec7f",
+      "c": "#635b00",
+      "icon": null,
+      "id": 7,
+      "nm": "Gelbe Tonne / Container",
+      "snm": "GT",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#507000",
+      "c": "#ddf2b3",
+      "icon": null,
+      "id": 8,
+      "nm": "Grüngut",
+      "snm": "GG",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#1f5c00",
+      "c": "#c8f0b4",
+      "icon": null,
+      "id": 9,
+      "nm": "Christbäume",
+      "snm": "CB",
+      "son": false,
+      "vb": false
+    },
+    {
+      "ab": false,
+      "abp": false,
+      "abr": false,
+      "bg": "#b30036",
+      "c": "#f5d7e2",
+      "icon": null,
+      "id": 10,
+      "nm": "Umweltmobil",
+      "snm": "UM",
+      "son": true,
+      "vb": false
+    },
+    {
+      "ab": true,
+      "abp": true,
+      "abr": true,
+      "bg": "#b8b8b8",
+      "c": "#2e2e2e",
+      "icon": null,
+      "id": 11,
+      "nm": "Kartonagensammlung",
+      "snm": "KS",
+      "son": true,
+      "vb": false
+    }
+  ],
+  "calendar": [
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260101",
+      "fr": [
+        "GT"
+      ],
+      "ft": "Neujahr",
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260102",
+      "fr": [
+        "BT"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260105",
+      "fr": [
+        "GT"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": null,
+      "dt": "20260106",
+      "fr": null,
+      "ft": "Heilige Drei Könige",
+      "id": null
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18",
+        "Remshalden, Ina-Seidel-Straße 18",
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260110",
+      "fr": [
+        "R2",
+        "R4",
+        "CB"
+      ],
+      "ft": null,
+      "id": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260115",
+      "fr": [
+        "BT"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260116",
+      "fr": [
+        "PT"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260121",
+      "fr": [
+        "R2"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260128",
+      "fr": [
+        "BT"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260129",
+      "fr": [
+        "GT"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18",
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260204",
+      "fr": [
+        "R2",
+        "R4"
+      ],
+      "ft": null,
+      "id": [
+        0,
+        0
+      ]
+    },
+    {
+      "ad": [
+        "Remshalden, Ina-Seidel-Straße 18"
+      ],
+      "dt": "20260211",
+      "fr": [
+        "BT"
+      ],
+      "ft": null,
+      "id": [
+        0
+      ]
+    }
+  ]
+}
