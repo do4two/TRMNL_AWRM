@@ -6,7 +6,11 @@ name: AWRM Daten aktualisieren
 
 on:
   schedule:
-    - cron: "0 4 * * *"      # taeglich ~06:00 Europe/Berlin
+    # GitHub-Crons verzoegern sich oft um Stunden (beobachtet: 2,5-5 h),
+    # daher frueh nach Berliner Mitternacht (ganzjaehrig, CET wie CEST),
+    # krumme Minute gegen die Vollstunden-Last, plus Sicherheitslauf.
+    - cron: "23 1 * * *"     # ~02:23/03:23 Europe/Berlin
+    - cron: "23 3 * * *"     # Sicherheitslauf, falls der erste haengt
   workflow_dispatch:          # zusaetzlich manuell ausloesbar (Actions-Tab)
 
 permissions:

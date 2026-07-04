@@ -104,8 +104,9 @@ Das Plugin pollt **eine URL**, die das anzeigefertige JSON liefert. Da `HEUTE`/`
 und `in X Tagen` tagesaktuell sein müssen, erzeugt eine **GitHub Action** die Datei
 täglich neu:
 
-- Workflow: [`.github/workflows/awrm.yml`](.github/workflows/awrm.yml) (Cron `0 4 * * *`
-  ≈ 06:00 Berlin, zusätzlich manuell über *Actions → Run workflow*).
+- Workflow: [`.github/workflows/awrm.yml`](.github/workflows/awrm.yml) (Cron `23 1 * * *`
+  + Sicherheitslauf `23 3 * * *` ≈ 02:23/04:23 Berlin — bewusst früh, weil GitHub-Crons
+  sich um Stunden verzögern können; zusätzlich manuell über *Actions → Run workflow*).
 - Schritt: `node transform/worker.js > public/awrm.json`, danach Commit bei Änderung.
 - Voraussetzung: *Settings → Actions → Workflow permissions → Read and write*.
 
