@@ -1,66 +1,38 @@
 {
   "address": "Ina-Seidel-Str. 18, Remshalden",
-  "generated_at": "2026-07-09T06:57:41.742Z",
-  "generated_at_human": "09.07.2026 08:57",
-  "today": "2026-07-09",
+  "generated_at": "2026-07-10T05:09:55.274Z",
+  "generated_at_human": "10.07.2026 07:09",
+  "today": "2026-07-10",
   "source": "AWRM / awido.cubefour.de (client=rmk)",
   "next": {
-    "date": "2026-07-09",
-    "date_human": "09.07.2026",
-    "day": "09",
+    "date": "2026-07-16",
+    "date_human": "16.07.2026",
+    "day": "16",
     "month": "07",
     "weekday": "Donnerstag",
     "weekday_short": "Do",
-    "days_until": 0,
-    "relative": "Heute",
-    "is_today": true,
+    "days_until": 6,
+    "relative": "in 6 Tagen",
+    "is_today": false,
     "is_tomorrow": false,
-    "is_soon": true,
-    "badge": "HEUTE",
+    "is_soon": false,
+    "badge": "",
     "items": [
-      {
-        "name": "Restmüll",
-        "tag": "REST",
-        "code": "R2"
-      },
       {
         "name": "Biotonne",
         "tag": "BIO",
         "code": "BT"
+      },
+      {
+        "name": "Gelbe Tonne",
+        "tag": "GELB",
+        "code": "GT"
       }
     ],
-    "items_text": "Restmüll + Biotonne",
-    "tags_text": "REST BIO"
+    "items_text": "Biotonne + Gelbe Tonne",
+    "tags_text": "BIO GELB"
   },
   "upcoming": [
-    {
-      "date": "2026-07-09",
-      "date_human": "09.07.2026",
-      "day": "09",
-      "month": "07",
-      "weekday": "Donnerstag",
-      "weekday_short": "Do",
-      "days_until": 0,
-      "relative": "Heute",
-      "is_today": true,
-      "is_tomorrow": false,
-      "is_soon": true,
-      "badge": "HEUTE",
-      "items": [
-        {
-          "name": "Restmüll",
-          "tag": "REST",
-          "code": "R2"
-        },
-        {
-          "name": "Biotonne",
-          "tag": "BIO",
-          "code": "BT"
-        }
-      ],
-      "items_text": "Restmüll + Biotonne",
-      "tags_text": "REST BIO"
-    },
     {
       "date": "2026-07-16",
       "date_human": "16.07.2026",
@@ -68,8 +40,8 @@
       "month": "07",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 7,
-      "relative": "in 7 Tagen",
+      "days_until": 6,
+      "relative": "in 6 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -96,8 +68,8 @@
       "month": "07",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 14,
-      "relative": "in 14 Tagen",
+      "days_until": 13,
+      "relative": "in 13 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -124,8 +96,8 @@
       "month": "07",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 21,
-      "relative": "in 21 Tagen",
+      "days_until": 20,
+      "relative": "in 20 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -147,8 +119,8 @@
       "month": "07",
       "weekday": "Freitag",
       "weekday_short": "Fr",
-      "days_until": 22,
-      "relative": "in 22 Tagen",
+      "days_until": 21,
+      "relative": "in 21 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -170,8 +142,8 @@
       "month": "08",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 28,
-      "relative": "in 28 Tagen",
+      "days_until": 27,
+      "relative": "in 27 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -198,8 +170,8 @@
       "month": "08",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 35,
-      "relative": "in 35 Tagen",
+      "days_until": 34,
+      "relative": "in 34 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -226,8 +198,8 @@
       "month": "08",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 42,
-      "relative": "in 42 Tagen",
+      "days_until": 41,
+      "relative": "in 41 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -246,6 +218,29 @@
       ],
       "items_text": "Restmüll + Biotonne",
       "tags_text": "REST BIO"
+    },
+    {
+      "date": "2026-08-27",
+      "date_human": "27.08.2026",
+      "day": "27",
+      "month": "08",
+      "weekday": "Donnerstag",
+      "weekday_short": "Do",
+      "days_until": 48,
+      "relative": "in 48 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        }
+      ],
+      "items_text": "Biotonne",
+      "tags_text": "BIO"
     }
   ],
   "count": 8,
