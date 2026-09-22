@@ -1,12 +1,239 @@
 {
   "address": "Ina-Seidel-Str. 18, Remshalden",
-  "generated_at": "2026-09-22T06:18:10.739Z",
-  "generated_at_human": "22.09.2026 08:18",
+  "generated_at": "2026-09-22T08:39:27.462Z",
+  "generated_at_human": "22.09.2026 10:39",
   "today": "2026-09-22",
   "source": "AWRM / awido.cubefour.de (client=rmk)",
-  "next": null,
-  "upcoming": [],
-  "count": 0,
-  "has_pickups": false,
-  "error": "Keine kommenden Termine in der Quelle (Kalender ggf. abgelaufen)."
+  "next": {
+    "date": "2026-09-24",
+    "date_human": "24.09.2026",
+    "day": "24",
+    "month": "09",
+    "weekday": "Donnerstag",
+    "weekday_short": "Do",
+    "days_until": 2,
+    "relative": "Übermorgen",
+    "is_today": false,
+    "is_tomorrow": false,
+    "is_soon": false,
+    "badge": "",
+    "items": [
+      {
+        "name": "Biotonne",
+        "tag": "BIO",
+        "code": "BT"
+      }
+    ],
+    "items_text": "Biotonne",
+    "tags_text": "BIO"
+  },
+  "upcoming": [
+    {
+      "date": "2026-09-24",
+      "date_human": "24.09.2026",
+      "day": "24",
+      "month": "09",
+      "weekday": "Donnerstag",
+      "weekday_short": "Do",
+      "days_until": 2,
+      "relative": "Übermorgen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        }
+      ],
+      "items_text": "Biotonne",
+      "tags_text": "BIO"
+    },
+    {
+      "date": "2026-09-25",
+      "date_human": "25.09.2026",
+      "day": "25",
+      "month": "09",
+      "weekday": "Freitag",
+      "weekday_short": "Fr",
+      "days_until": 3,
+      "relative": "in 3 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Papier",
+          "tag": "PAP",
+          "code": "PT"
+        }
+      ],
+      "items_text": "Papier",
+      "tags_text": "PAP"
+    },
+    {
+      "date": "2026-10-01",
+      "date_human": "01.10.2026",
+      "day": "01",
+      "month": "10",
+      "weekday": "Donnerstag",
+      "weekday_short": "Do",
+      "days_until": 9,
+      "relative": "in 9 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Restmüll",
+          "tag": "REST",
+          "code": "R2"
+        },
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        }
+      ],
+      "items_text": "Restmüll + Biotonne",
+      "tags_text": "REST BIO"
+    },
+    {
+      "date": "2026-10-08",
+      "date_human": "08.10.2026",
+      "day": "08",
+      "month": "10",
+      "weekday": "Donnerstag",
+      "weekday_short": "Do",
+      "days_until": 16,
+      "relative": "in 16 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        },
+        {
+          "name": "Gelbe Tonne",
+          "tag": "GELB",
+          "code": "GT"
+        }
+      ],
+      "items_text": "Biotonne + Gelbe Tonne",
+      "tags_text": "BIO GELB"
+    },
+    {
+      "date": "2026-10-15",
+      "date_human": "15.10.2026",
+      "day": "15",
+      "month": "10",
+      "weekday": "Donnerstag",
+      "weekday_short": "Do",
+      "days_until": 23,
+      "relative": "in 23 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Restmüll",
+          "tag": "REST",
+          "code": "R2"
+        },
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        }
+      ],
+      "items_text": "Restmüll + Biotonne",
+      "tags_text": "REST BIO"
+    },
+    {
+      "date": "2026-10-22",
+      "date_human": "22.10.2026",
+      "day": "22",
+      "month": "10",
+      "weekday": "Donnerstag",
+      "weekday_short": "Do",
+      "days_until": 30,
+      "relative": "in 30 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        }
+      ],
+      "items_text": "Biotonne",
+      "tags_text": "BIO"
+    },
+    {
+      "date": "2026-10-23",
+      "date_human": "23.10.2026",
+      "day": "23",
+      "month": "10",
+      "weekday": "Freitag",
+      "weekday_short": "Fr",
+      "days_until": 31,
+      "relative": "in 31 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Papier",
+          "tag": "PAP",
+          "code": "PT"
+        }
+      ],
+      "items_text": "Papier",
+      "tags_text": "PAP"
+    },
+    {
+      "date": "2026-10-29",
+      "date_human": "29.10.2026",
+      "day": "29",
+      "month": "10",
+      "weekday": "Donnerstag",
+      "weekday_short": "Do",
+      "days_until": 37,
+      "relative": "in 37 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Restmüll",
+          "tag": "REST",
+          "code": "R2"
+        },
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        }
+      ],
+      "items_text": "Restmüll + Biotonne",
+      "tags_text": "REST BIO"
+    }
+  ],
+  "count": 8,
+  "has_pickups": true,
+  "error": null
 }
