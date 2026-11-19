@@ -1,16 +1,16 @@
 {
   "address": "Ina-Seidel-Str. 18, Remshalden",
-  "generated_at": "2026-11-18T11:56:19.558Z",
-  "generated_at_human": "18.11.2026 12:56",
-  "today": "2026-11-18",
+  "generated_at": "2026-11-19T08:51:27.262Z",
+  "generated_at_human": "19.11.2026 09:51",
+  "today": "2026-11-19",
   "source": "AWRM / awido.cubefour.de (client=rmk)",
   "next": {
-    "date": "2026-11-18",
-    "date_human": "18.11.2026",
-    "day": "18",
+    "date": "2026-11-19",
+    "date_human": "19.11.2026",
+    "day": "19",
     "month": "11",
-    "weekday": "Mittwoch",
-    "weekday_short": "Mi",
+    "weekday": "Donnerstag",
+    "weekday_short": "Do",
     "days_until": 0,
     "relative": "Heute",
     "is_today": true,
@@ -19,38 +19,15 @@
     "badge": "HEUTE",
     "items": [
       {
-        "name": "Grüngut",
-        "tag": "GRÜN",
-        "code": "GG"
+        "name": "Biotonne",
+        "tag": "BIO",
+        "code": "BT"
       }
     ],
-    "items_text": "Grüngut",
-    "tags_text": "GRÜN"
+    "items_text": "Biotonne",
+    "tags_text": "BIO"
   },
   "upcoming": [
-    {
-      "date": "2026-11-18",
-      "date_human": "18.11.2026",
-      "day": "18",
-      "month": "11",
-      "weekday": "Mittwoch",
-      "weekday_short": "Mi",
-      "days_until": 0,
-      "relative": "Heute",
-      "is_today": true,
-      "is_tomorrow": false,
-      "is_soon": true,
-      "badge": "HEUTE",
-      "items": [
-        {
-          "name": "Grüngut",
-          "tag": "GRÜN",
-          "code": "GG"
-        }
-      ],
-      "items_text": "Grüngut",
-      "tags_text": "GRÜN"
-    },
     {
       "date": "2026-11-19",
       "date_human": "19.11.2026",
@@ -58,12 +35,12 @@
       "month": "11",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 1,
-      "relative": "Morgen",
-      "is_today": false,
-      "is_tomorrow": true,
+      "days_until": 0,
+      "relative": "Heute",
+      "is_today": true,
+      "is_tomorrow": false,
       "is_soon": true,
-      "badge": "MORGEN",
+      "badge": "HEUTE",
       "items": [
         {
           "name": "Biotonne",
@@ -81,12 +58,12 @@
       "month": "11",
       "weekday": "Freitag",
       "weekday_short": "Fr",
-      "days_until": 2,
-      "relative": "Übermorgen",
+      "days_until": 1,
+      "relative": "Morgen",
       "is_today": false,
-      "is_tomorrow": false,
-      "is_soon": false,
-      "badge": "",
+      "is_tomorrow": true,
+      "is_soon": true,
+      "badge": "MORGEN",
       "items": [
         {
           "name": "Papier",
@@ -104,8 +81,8 @@
       "month": "11",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 8,
-      "relative": "in 8 Tagen",
+      "days_until": 7,
+      "relative": "in 7 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -127,8 +104,8 @@
       "month": "12",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 15,
-      "relative": "in 15 Tagen",
+      "days_until": 14,
+      "relative": "in 14 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -155,8 +132,8 @@
       "month": "12",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 22,
-      "relative": "in 22 Tagen",
+      "days_until": 21,
+      "relative": "in 21 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -178,8 +155,8 @@
       "month": "12",
       "weekday": "Donnerstag",
       "weekday_short": "Do",
-      "days_until": 29,
-      "relative": "in 29 Tagen",
+      "days_until": 28,
+      "relative": "in 28 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -206,8 +183,8 @@
       "month": "12",
       "weekday": "Mittwoch",
       "weekday_short": "Mi",
-      "days_until": 35,
-      "relative": "in 35 Tagen",
+      "days_until": 34,
+      "relative": "in 34 Tagen",
       "is_today": false,
       "is_tomorrow": false,
       "is_soon": false,
@@ -221,6 +198,29 @@
       ],
       "items_text": "Restmüll",
       "tags_text": "REST"
+    },
+    {
+      "date": "2027-01-04",
+      "date_human": "04.01.2027",
+      "day": "04",
+      "month": "01",
+      "weekday": "Montag",
+      "weekday_short": "Mo",
+      "days_until": 46,
+      "relative": "in 46 Tagen",
+      "is_today": false,
+      "is_tomorrow": false,
+      "is_soon": false,
+      "badge": "",
+      "items": [
+        {
+          "name": "Biotonne",
+          "tag": "BIO",
+          "code": "BT"
+        }
+      ],
+      "items_text": "Biotonne",
+      "tags_text": "BIO"
     }
   ],
   "count": 8,
